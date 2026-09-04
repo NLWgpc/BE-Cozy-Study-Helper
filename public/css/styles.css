@@ -1,0 +1,274 @@
+:root {
+    /* Color Palette - Cozy Cafe Theme */
+    --clr-cream: #FDFBF7;
+    --clr-beige: #F4EFE6;
+    --clr-sage: #9CAD92;
+    --clr-terracotta: #D08C70;
+    --clr-caramel: #C78248;
+    --clr-coffee: #5C433B;
+    --clr-espresso: #30201A;
+    
+    /* Text Colors */
+    --text-main: var(--clr-espresso);
+    --text-muted: var(--clr-coffee);
+    --text-light: var(--clr-cream);
+    
+    /* Glassmorphism */
+    --glass-bg: rgba(253, 251, 247, 0.7);
+    --glass-border: rgba(253, 251, 247, 0.4);
+    --glass-shadow: 0 8px 32px 0 rgba(48, 32, 26, 0.1);
+
+    /* Typography */
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Metrics */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-full: 9999px;
+    
+    --transition-fast: 0.2s ease;
+    --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-main);
+    background-color: var(--clr-beige);
+    background-image: 
+        radial-gradient(at 0% 0%, hsla(28, 59%, 85%, 1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, hsla(97, 16%, 85%, 1) 0px, transparent 50%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+a {
+    text-decoration: none;
+    color: var(--clr-caramel);
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--clr-terracotta);
+}
+
+/* Base Components */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-heading);
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition-smooth);
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: var(--clr-coffee);
+    color: var(--clr-cream);
+    box-shadow: 0 4px 12px rgba(92, 67, 59, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: var(--clr-espresso);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(48, 32, 26, 0.25);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--clr-coffee);
+    color: var(--clr-coffee);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(92, 67, 59, 0.05);
+    transform: translateY(-2px);
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.input-group input, .input-group textarea {
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    border: 2px solid rgba(92, 67, 59, 0.1);
+    background-color: var(--clr-cream);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-main);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.input-group input:focus, .input-group textarea:focus {
+    outline: none;
+    border-color: var(--clr-caramel);
+    box-shadow: 0 0 0 3px rgba(199, 130, 72, 0.1);
+}
+
+/* Header */
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253, 251, 247, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(92, 67, 59, 0.1);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--clr-espresso);
+}
+
+.logo-icon {
+    font-size: 1.8rem;
+    color: var(--clr-caramel);
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-muted);
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--clr-espresso);
+    background-color: rgba(92, 67, 59, 0.05);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Main Container */
+.main-container {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    width: 100%;
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-4 { margin-top: 2rem; }
+
+/* Loader */
+.loader {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(253, 251, 247, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--clr-cream);
+    animation: spin 1s ease-in-out infinite;
+}
+
+.btn-primary .loader {
+    border-top-color: var(--clr-cream);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Toast Notification */
+#toast-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.toast {
+    background: var(--clr-espresso);
+    color: var(--clr-cream);
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transform: translateX(120%);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast.error {
+    background-color: #A34A4A;
+}

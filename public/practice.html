@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice - Cozy Study Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <style>
+        .settings-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+        
+        select {
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            border: 2px solid rgba(92, 67, 59, 0.1);
+            background-color: var(--clr-cream);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-main);
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+        
+        .practice-question {
+            background: var(--clr-cream);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(92, 67, 59, 0.1);
+        }
+        
+        .practice-answer {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(156, 173, 146, 0.2); /* Sage tint */
+            border-radius: var(--radius-sm);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <a href="/" class="logo">
+            <span class="material-symbols-outlined logo-icon">local_cafe</span>
+            Study Cafe
+        </a>
+        <button class="mobile-menu-btn" id="mobile-menu-btn">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <nav class="nav-links" id="nav-links">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/solve" class="nav-link">Solve Questions</a>
+            <a href="/practice" class="nav-link active">Practice</a>
+            <a href="/history" class="nav-link">History</a>
+            <div class="auth-buttons" id="auth-buttons">
+                <!-- Injected via auth.js -->
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <h1 class="text-center mb-1">Brew Practice Questions</h1>
+        <p class="text-center text-muted mb-4">Generate new questions similar to what you've studied.</p>
+        
+        <div class="settings-card" id="settings-card">
+            <form id="practice-form">
+                <label style="font-family: var(--font-heading); margin-bottom: 0.5rem; display: block;">Select Source Document</label>
+                <select id="doc-select" required>
+                    <option value="" disabled selected>Loading documents...</option>
+                </select>
+                
+                <label style="font-family: var(--font-heading); margin-bottom: 0.5rem; display: block;">Difficulty</label>
+                <select id="diff-select">
+                    <option value="easy">Easy (Warm up)</option>
+                    <option value="medium" selected>Medium (Standard)</option>
+                    <option value="hard">Hard (Challenge)</option>
+                </select>
+                
+                <label style="font-family: var(--font-heading); margin-bottom: 0.5rem; display: block;">Number of Questions</label>
+                <select id="num-select">
+                    <option value="3">3 questions</option>
+                    <option value="5" selected>5 questions</option>
+                    <option value="10">10 questions</option>
+                </select>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;" id="generate-btn">
+                    <span class="material-symbols-outlined">auto_awesome</span>
+                    Generate Practice
+                </button>
+            </form>
+        </div>
+        
+        <div id="results-container" style="max-width: 800px; margin: 0 auto; display: none;">
+            <h2 class="mb-3">Your Practice Set</h2>
+            <div id="questions-list"></div>
+            
+            <button class="btn btn-secondary mt-4" onclick="location.reload()" style="display: block; margin: 0 auto;">
+                <span class="material-symbols-outlined">refresh</span>
+                Brew Another Set
+            </button>
+        </div>
+    </main>
+
+    <div id="toast-container"></div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/practice.js"></script>
+</body>
+</html>
