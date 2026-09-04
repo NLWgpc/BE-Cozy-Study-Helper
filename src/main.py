@@ -22,12 +22,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Setup static files directory
+# Setup static files directory if available
 public_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "public")
-app.mount("/css", StaticFiles(directory=os.path.join(public_dir, "css")), name="css")
-app.mount("/js", StaticFiles(directory=os.path.join(public_dir, "js")), name="js")
-app.mount("/assets", StaticFiles(directory=os.path.join(public_dir, "assets")), name="assets")
-app.mount("/uploads", StaticFiles(directory=os.path.join(os.path.dirname(os.path.dirname(__file__)), "uploads")), name="uploads")
+for sub in ["css", "js", "assets"]:
+    sub_dir = os.path.join(public_dir, sub)
+    if os.path.isdir(sub_dir):
+        app.mount(f"/{sub}", StaticFiles(directory=sub_dir), name=sub)
+
+# Setup uploads directory
+uploads_dir = os.getenv("UPLOAD_DIR", os.path.join(os.path.dirname(os.path.dirname(__file__)), "uploads"))
+os.makedirs(uploads_dir, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=uploads_dir), name="uploads")
 
 from src.routes.auth_routes import router as auth_router
 from src.routes.upload_routes import router as upload_router
@@ -39,25 +44,48 @@ app.include_router(gemini_router, prefix="/api/gemini", tags=["gemini"])
 
 from fastapi.responses import FileResponse
 
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"}
+
 @app.get("/")
 async def root():
-    return FileResponse(os.path.join(public_dir, "index.html"))
+    index_path = os.path.join(public_dir, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    return {
+        "status": "online",
+        "service": "Cozy Study Guide API",
+        "docs": "/docs"
+    }
 
 @app.get("/login")
 async def login_page():
-    return FileResponse(os.path.join(public_dir, "login.html"))
+    path = os.path.join(public_dir, "login.html")
+    if os.path.exists(path):
+        return FileResponse(path)
+    return {"message": "API backend only"}
 
 @app.get("/solve")
 async def solve_page():
-    return FileResponse(os.path.join(public_dir, "solve.html"))
+    path = os.path.join(public_dir, "solve.html")
+    if os.path.exists(path):
+        return FileResponse(path)
+    return {"message": "API backend only"}
 
 @app.get("/practice")
 async def practice_page():
-    return FileResponse(os.path.join(public_dir, "practice.html"))
+    path = os.path.join(public_dir, "practice.html")
+    if os.path.exists(path):
+        return FileResponse(path)
+    return {"message": "API backend only"}
 
 @app.get("/history")
 async def history_page():
-    return FileResponse(os.path.join(public_dir, "history.html"))
+    path = os.path.join(public_dir, "history.html")
+    if os.path.exists(path):
+        return FileResponse(path)
+    return {"message": "API backend only"}
 
 @app.get("/api/config/google-client-id")
 async def google_client_id():

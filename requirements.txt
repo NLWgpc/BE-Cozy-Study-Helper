@@ -8,3 +8,4 @@ python-multipart
 google-auth
 google-genai
 requests
+email-validator
