@@ -1,7 +1,7 @@
 import os
 import glob
 
-public_dir = '/Users/nathanlukewijaya/Documents/YCWC - Homework Helper/public'
+public_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'public')
 html_files = glob.glob(os.path.join(public_dir, '*.html'))
 
 for file in html_files:

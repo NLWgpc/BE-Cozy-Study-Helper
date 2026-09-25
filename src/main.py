@@ -7,6 +7,9 @@ from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
+parent_env = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "..", ".env")
+if os.path.exists(parent_env):
+    load_dotenv(parent_env)
 
 # Initialize database
 init_db()
